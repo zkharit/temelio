@@ -7,8 +7,8 @@ app.use(logger)
 //app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
-const foundationRouter = require('./routes/foundation')
-const nonProfitRouter = require('./routes/nonprofit')
+const foundationRouter = require('../routes/foundation')
+const nonProfitRouter = require('../routes/nonprofit')
 
 app.use('/foundation', foundationRouter)
 app.use('/nonprofit', nonProfitRouter)
