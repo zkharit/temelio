@@ -16,7 +16,3 @@ CREATE TABLE nonprofit
 	name varchar(50),
 	address varchar(50)
 );
-
-INSERT INTO foundation(email)
-VALUES
-	('zane@gmail.com');
