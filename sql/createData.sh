@@ -1,2 +1,2 @@
 #!/bin/bash
-psql -U postgres -f data.sql
+psql -U postgres -d temelio -f data.sql
