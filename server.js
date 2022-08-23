@@ -7,11 +7,6 @@ app.use(logger)
 //app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
-app.get('/', logger, (req, res) => {
-    console.log('Here')
-    res.status(200).json({message: "Hello World"})
-})
-
 const foundationRouter = require('./routes/foundation')
 const nonProfitRouter = require('./routes/nonprofit')
 
@@ -24,5 +19,3 @@ function logger(req, res, next) {
 }
 
 app.listen(3000)
-
-
