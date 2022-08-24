@@ -41,38 +41,36 @@ class Postgres {
         })
     }
     
-    getAllFromNonProfit() {
+    async getNameFromNonProfit(email) {
         const client = new Client()
         client.connect()
     
-        const query = 'SELECT * from nonprofit'
+        const query = 'SELECT name from nonprofit where email = $1'
+        const values = [email]
     
-        client.query(query, (err, res) => {
-            if(err) {
-                console.log(err.message)
-            } else {
-                // console.log(res.rows)
-                // will add this to specific logging levels later
-            }
-            client.end()
-        })
+        const { rows } = await client.query(query, values)
+
+        // console.log(rows)
+        // will add this to specific logging levels later
+
+        client.end()
+        return rows[0].name
     }
-    
-    getEmailFromNonProfit() {
+
+    async getAddressFromNonProfit(email) {
         const client = new Client()
-        client.connect()
+        await client.connect()
     
-        const query = 'SELECT email from nonprofit'
-    
-        client.query(query, (err, res) => {
-            if(err) {
-                console.log(err.message)
-            } else {
-                // console.log(res.rows)
-                // will add this to specific logging levels later
-            }
-            client.end()
-        })
+        const query = 'SELECT address from nonprofit where email = $1'
+        const values = [email]
+        
+        const { rows } = await client.query(query, values)
+
+        // console.log(rows)
+        // will add this to specific logging levels later
+
+        client.end()
+        return rows[0].address
     }
 }
 
