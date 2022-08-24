@@ -59,7 +59,7 @@ class Postgres {
 
     async getAddressFromNonProfit(email) {
         const client = new Client()
-        await client.connect()
+        client.connect()
     
         const query = 'SELECT address from nonprofit where email = $1'
         const values = [email]
