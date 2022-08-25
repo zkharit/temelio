@@ -1,14 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const Postgres = require('../src/postgres')
+const logger = require('../src/logger')
 
 const postgres = new Postgres()
 
 router.post('/create', (req,res) => {
-    // console.log(req.body.email)
-    // console.log(req.body.name)
-    // console.log(req.body.address)
-    // will add this to specific logging levels later
+    let scope = "nonprofit.post.create():"
+    logger.debug(`Entering ${scope}`)
+    logger.debug(`${scope} ${req.body.email}`)
+    logger.debug(`${scope} ${req.body.name}`)
+    logger.debug(`${scope} ${req.body.address}`)
+
     postgres.insertIntoNonProfit(req.body.email, req.body.name, req.body.address)
 
     res.sendStatus(200)     //.status(200).json({
