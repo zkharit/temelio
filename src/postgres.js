@@ -1,10 +1,13 @@
 const { Client } = require('pg')
 require('dotenv').config({path: '.env'})
+const logger = require('../src/logger')
 
 class Postgres {
     constructor () {}
 
     insertIntoFoundation(email) {
+        let scope = "postgres.insertIntoFoundation():"
+        logger.debug(`Entering ${scope}`)
         const client = new Client()
         client.connect()
     
@@ -14,16 +17,17 @@ class Postgres {
         client.query(query, values, (err, res) => {
     
             if(err) {
-                console.log(err.message)
+                logger.error(`${scope} ${err.message}`)
             } else {
-                // console.log(res.rows)
-                // will add this to specific logging levels later
+                logger.debug(`${scope} inserted ${email} into foundation DB`)
             }
             client.end()
         })
     }
     
     insertIntoNonProfit(email, name, address) {
+        let scope = "postgres.insertIntoNonProfit():"
+        logger.debug(`Entering ${scope}`)
         const client = new Client()
         client.connect()
     
@@ -32,16 +36,17 @@ class Postgres {
     
         client.query(query, values, (err, res) => {
             if(err) {
-                console.log(err.message)
+                logger.error(`${scope} ${err.message}`)
             } else {
-                // console.log(res.rows)
-                // will add this to specific logging levels later
+                logger.debug(`${scope} inserted ${email} into nonprofit DB`)
             }
             client.end()
         })
     }
     
     async getNameFromNonProfit(email) {
+        let scope = "postgres.getNameFromNonProfit():"
+        logger.debug(`Entering ${scope}`)
         const client = new Client()
         client.connect()
     
@@ -50,14 +55,15 @@ class Postgres {
     
         const { rows } = await client.query(query, values)
 
-        // console.log(rows)
-        // will add this to specific logging levels later
+        logger.debug(`${scope} got nonprofit: ${email} with name: ${rows[0].name}`)
 
         client.end()
         return rows[0].name
     }
 
     async getAddressFromNonProfit(email) {
+        let scope = "postgres.getAddressFromNonProfit():"
+        logger.debug(`Entering ${scope}`)
         const client = new Client()
         client.connect()
     
@@ -66,8 +72,7 @@ class Postgres {
         
         const { rows } = await client.query(query, values)
 
-        // console.log(rows)
-        // will add this to specific logging levels later
+        logger.debug(`${scope} got nonprofit: ${email} with addresss: ${rows[0].address}`)
 
         client.end()
         return rows[0].address
